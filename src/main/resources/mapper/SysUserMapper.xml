@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="life.tree3.trunk.dao.SysUserMapper">
+
+    <resultMap type="life.tree3.trunk.pojo.entity.SysUser" id="SysUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="age" column="age" jdbcType="INTEGER"/>
+        <result property="gender" column="gender" jdbcType="VARCHAR"/>
+        <result property="phoneNumber" column="phone_number" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="payload" column="payload" jdbcType="VARCHAR"/>
+        <result property="locked" column="locked" jdbcType="BOOLEAN"/>
+        <result property="deleted" column="deleted" jdbcType="BOOLEAN"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--全部字段-->
+    <sql id="allColumn"> id
+    , username, password, name, age, gender, phone_number, email, payload, locked, deleted, create_time, update_time </sql>
+
+    <!--通用对SysUser各个属性的值的非空判断-->
+    <sql id="commonsValue">
+        <if test="username != null and username != ''">
+            username = #{username},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="age != null">
+            age = #{age},
+        </if>
+        <if test="gender != null and gender != ''">
+            gender = #{gender},
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            phone_number = #{phoneNumber},
+        </if>
+        <if test="email != null and email != ''">
+            email = #{email},
+        </if>
+        <if test="payload != null">
+            payload = #{payload},
+        </if>
+        <if test="locked != null">
+            locked = #{locked},
+        </if>
+        <if test="deleted != null">
+            deleted = #{deleted},
+        </if>
+        <if test="createTime != null">
+            create_time = #{createTime},
+        </if>
+        <if test="updateTime != null">
+            update_time = #{updateTime},
+        </if>
+    </sql>
+
+    <!--添加语句的字段列表-->
+    <sql id="insertColumn">
+        <if test="username != null and username != ''">
+            username,
+        </if>
+        <if test="password != null and password != ''">
+            password,
+        </if>
+        <if test="name != null and name != ''">
+            name,
+        </if>
+        <if test="age != null">
+            age,
+        </if>
+        <if test="gender != null and gender != ''">
+            gender,
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            phone_number,
+        </if>
+        <if test="email != null and email != ''">
+            email,
+        </if>
+        <if test="payload != null">
+            payload,
+        </if>
+        <if test="locked != null">
+            locked,
+        </if>
+        <if test="deleted != null">
+            deleted,
+        </if>
+        <if test="createTime != null">
+            create_time,
+        </if>
+        <if test="updateTime != null">
+            update_time,
+        </if>
+    </sql>
+
+    <!--添加语句的值列表-->
+    <sql id="insertValue">
+        <if test="username != null and username != ''">
+            #{username},
+        </if>
+        <if test="password != null and password != ''">
+            #{password},
+        </if>
+        <if test="name != null and name != ''">
+            #{name},
+        </if>
+        <if test="age != null">
+            #{age},
+        </if>
+        <if test="gender != null and gender != ''">
+            #{gender},
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            #{phoneNumber},
+        </if>
+        <if test="email != null and email != ''">
+            #{email},
+        </if>
+        <if test="payload != null">
+            #{payload},
+        </if>
+        <if test="locked != null">
+            #{locked},
+        </if>
+        <if test="deleted != null">
+            #{deleted},
+        </if>
+        <if test="createTime != null">
+            #{createTime},
+        </if>
+        <if test="updateTime != null">
+            #{updateTime},
+        </if>
+    </sql>
+
+    <!--多条件查询的条件-->
+    <sql id="queryCondition">
+        <if test="id != null">
+            and id = #{id}
+        </if>
+
+        <if test="username != null and username != ''">
+            and username = #{username}
+        </if>
+        <if test="password != null and password != ''">
+            and password = #{password}
+        </if>
+        <if test="name != null and name != ''">
+            and name = #{name}
+        </if>
+        <if test="age != null">
+            and age = #{age}
+        </if>
+        <if test="gender != null and gender != ''">
+            and gender = #{gender}
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            and phone_number = #{phoneNumber}
+        </if>
+        <if test="email != null and email != ''">
+            and email = #{email}
+        </if>
+        <if test="payload != null">
+            and payload = #{payload}
+        </if>
+        <if test="locked != null">
+            and locked = #{locked}
+        </if>
+        <if test="deleted != null">
+            and deleted = #{deleted}
+        </if>
+        <if test="createTime != null">
+            and create_time = #{createTime}
+        </if>
+        <if test="updateTime != null">
+            and update_time = #{updateTime}
+        </if>
+    </sql>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="SysUserMap">
+        select
+        <include refid="allColumn"></include>
+        from sys_user
+        <where>
+            id = #{id}
+        </where>
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="SysUserMap">
+        select
+        <include refid="allColumn"></include>
+        from sys_user
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="queryCondition"></include>
+        </trim>
+    </select>
+
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from sys_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="age != null">
+                and age = #{age}
+            </if>
+            <if test="gender != null and gender != ''">
+                and gender = #{gender}
+            </if>
+            <if test="phoneNumber != null and phoneNumber != ''">
+                and phone_number = #{phoneNumber}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="payload != null">
+                and payload = #{payload}
+            </if>
+            <if test="locked != null">
+                and locked = #{locked}
+            </if>
+            <if test="deleted != null">
+                and deleted = #{deleted}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update sys_user
+        <set>
+            <include refid="commonsValue"></include>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from sys_user
+        where id = #{id}
+    </delete>
+
+    <!--通过主键逻辑删除-->
+    <delete id="logicDeleteById">
+        update sys_user
+        <set>
+            deleted=1
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </delete>
+
+
+    <!--新增sys_user:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="insertColumn"/>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <include refid="insertValue"/>
+        </trim>
+    </insert>
+
+    <!--批量插入-->
+    <insert id="insertBatch" useGeneratedKeys="true">
+        insert into sys_user(username, password, name, age, gender, phone_number, email, payload, locked, deleted,
+        create_time, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.password}, #{entity.name}, #{entity.age}, #{entity.gender},
+            #{entity.phoneNumber}, #{entity.email}, #{entity.payload}, #{entity.locked}, #{entity.deleted},
+            #{entity.createTime}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" useGeneratedKeys="true">
+        insert into sys_user(username, password, name, age, gender, phone_number, email, payload, locked, deleted,
+        create_time, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.username}, #{entity.password}, #{entity.name}, #{entity.age}, #{entity.gender},
+            #{entity.phoneNumber}, #{entity.email}, #{entity.payload}, #{entity.locked}, #{entity.deleted},
+            #{entity.createTime}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        username = values(username),
+        password = values(password),
+        name = values(name),
+        age = values(age),
+        gender = values(gender),
+        phone_number = values(phone_number),
+        email = values(email),
+        payload = values(payload),
+        locked = values(locked),
+        deleted = values(deleted),
+        create_time = values(create_time),
+        update_time = values(update_time)
+    </insert>
+
+</mapper>
+
