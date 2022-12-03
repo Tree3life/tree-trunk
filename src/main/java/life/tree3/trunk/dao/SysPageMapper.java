@@ -1,5 +1,6 @@
 package life.tree3.trunk.dao;
 
+import life.tree3.trunk.pojo.dto.PageDto;
 import life.tree3.trunk.pojo.entity.SysPage;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -32,6 +33,14 @@ public interface SysPageMapper {
      * @date 2022-12-01 23:40:14
      */
     List<SysPage> queryAll();
+
+    /**
+     * 角色允许访问的页面的信息
+     *
+     * @param roleId
+     * @return
+     */
+    List<PageDto> queryPagesForRole(int roleId);
 
     /**
      * 实体作为筛选条件查询数据

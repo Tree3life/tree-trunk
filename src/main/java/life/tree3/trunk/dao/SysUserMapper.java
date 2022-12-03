@@ -1,5 +1,6 @@
 package life.tree3.trunk.dao;
 
+import life.tree3.trunk.pojo.dto.UserDto;
 import life.tree3.trunk.pojo.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,6 +23,15 @@ public interface SysUserMapper {
      */
     SysUser queryById(Integer id);
 
+    /**
+     * 查询用户的所有信息
+     * 仅按照id进行查询，该用户是否`被锁定/逻辑删除`需进一步通过代码判断
+     *
+     * @param id
+     * @return
+     */
+    UserDto queryUserInfoById(Integer id);
+
 
     /**
      * 查询全部数据
@@ -42,6 +52,7 @@ public interface SysUserMapper {
      * @date 2022-12-01 23:40:16
      */
     List<SysUser> queryAll(SysUser sysUser);
+    SysUser querySysUser(SysUser sysUser);
 
     /**
      * 统计总行数

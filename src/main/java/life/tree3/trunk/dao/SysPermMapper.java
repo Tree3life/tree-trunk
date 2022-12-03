@@ -1,5 +1,6 @@
 package life.tree3.trunk.dao;
 
+import life.tree3.trunk.pojo.dto.PageDto;
 import life.tree3.trunk.pojo.entity.SysPerm;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -42,6 +43,17 @@ public interface SysPermMapper {
      * @date 2022-12-01 23:40:15
      */
     List<SysPerm> queryAll(SysPerm sysPerm);
+
+
+    /**
+     * 查询访问页面时所需要的权限信息
+     *
+     * @param pageId
+     * @param locked 权限的锁定状态
+     * @return
+     */
+    List<SysPerm> queryPermissionsForPages(@Param("pageId") Integer pageIdqueryPermissionsForPages);
+
 
     /**
      * 统计总行数

@@ -15,6 +15,12 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <resultMap id="SysPageDtoMap" type="life.tree3.trunk.pojo.dto.PageDto">
+        <!--根据角色id查询对应的页面-->
+        <collection property="perms" column="{pageId=id}"
+                    select="life.tree3.trunk.dao.SysPermMapper.queryPermissionsForPages"/>
+    </resultMap>
+
     <!--全部字段-->
     <sql id="allColumn"> id
     , parent_id, title, description, path, file_path, weights, deleted, create_time, update_time </sql>
@@ -156,6 +162,21 @@
             id = #{id}
         </where>
     </select>
+
+    <select id="queryPagesForRole" resultMap="SysPageDtoMap">
+        select p.*
+        from sys_role r
+        left join sys_role_page rp on r.id = rp.role_id
+        left join sys_page p on rp.page_id = p.id
+        <where>
+            and r.id = #{roleId}
+            and p.locked = 0
+            and r.deleted = 0
+            and rp.deleted = 0
+            and p.deleted = 0
+        </where>
+    </select>
+
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SysPageMap">

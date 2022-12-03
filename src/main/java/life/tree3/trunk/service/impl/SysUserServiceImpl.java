@@ -1,5 +1,6 @@
 package life.tree3.trunk.service.impl;
 
+import life.tree3.trunk.pojo.dto.UserDto;
 import life.tree3.trunk.pojo.entity.SysUser;
 import life.tree3.trunk.dao.SysUserMapper;
 import life.tree3.trunk.service.SysUserService;
@@ -31,9 +32,20 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    public SysUser querySysUser(SysUser user) {
+        return sysUserMapper.querySysUser(user);
+    }
+
+    @Override
+    public UserDto queryUserInfo(Integer id) {
+        return sysUserMapper.queryUserInfoById(id);
+    }
+
+    @Override
     public SysUser queryById(Integer id) {
         return sysUserMapper.queryById(id);
     }
+
 
     @Override
     public SysUser update(SysUser sysUser) {

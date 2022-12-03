@@ -18,6 +18,12 @@
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
+    <resultMap id="SysUserDtoMap" type="life.tree3.trunk.pojo.dto.UserDto" extends="SysUserMap">
+        <!-- 根据用户id查询用户名下的所有角色 -->
+        <collection property="roles" column="{userId=id,username=username}"
+                    select="life.tree3.trunk.dao.SysRoleMapper.queryRolesForUser"/>
+    </resultMap>
+
     <!--全部字段-->
     <sql id="allColumn"> id
     , username, password, name, age, gender, phone_number, email, payload, locked, deleted, create_time, update_time </sql>
@@ -45,7 +51,7 @@
         <if test="email != null and email != ''">
             email = #{email},
         </if>
-        <if test="payload != null">
+        <if test="payload != null and payload != ''">
             payload = #{payload},
         </if>
         <if test="locked != null">
@@ -85,7 +91,7 @@
         <if test="email != null and email != ''">
             email,
         </if>
-        <if test="payload != null">
+        <if test="payload != null and payload != ''">
             payload,
         </if>
         <if test="locked != null">
@@ -125,7 +131,7 @@
         <if test="email != null and email != ''">
             #{email},
         </if>
-        <if test="payload != null">
+        <if test="payload != null and payload != ''">
             #{payload},
         </if>
         <if test="locked != null">
@@ -169,7 +175,7 @@
         <if test="email != null and email != ''">
             and email = #{email}
         </if>
-        <if test="payload != null">
+        <if test="payload != null and payload != ''">
             and payload = #{payload}
         </if>
         <if test="locked != null">
@@ -198,6 +204,16 @@
 
     <!--通过实体作为筛选条件查询-->
     <select id="queryAll" resultMap="SysUserMap">
+        select
+        <include refid="allColumn"></include>
+        from sys_user
+        <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
+            <include refid="queryCondition"></include>
+        </trim>
+    </select>
+
+    <!--条件查询单个元素-->
+    <select id="querySysUser" resultMap="SysUserMap">
         select
         <include refid="allColumn"></include>
         from sys_user
@@ -236,7 +252,7 @@
             <if test="email != null and email != ''">
                 and email = #{email}
             </if>
-            <if test="payload != null">
+            <if test="payload != null and payload != ''">
                 and payload = #{payload}
             </if>
             <if test="locked != null">
@@ -252,6 +268,13 @@
                 and update_time = #{updateTime}
             </if>
         </where>
+    </select>
+
+    <select id="queryUserInfoById" resultMap="SysUserDtoMap">
+        select
+        <include refid="allColumn"></include>
+        from sys_user
+        where id=#{id}
     </select>
 
 

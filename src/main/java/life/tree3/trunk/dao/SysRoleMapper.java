@@ -1,5 +1,6 @@
 package life.tree3.trunk.dao;
 
+import life.tree3.trunk.pojo.dto.RoleDto;
 import life.tree3.trunk.pojo.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,6 +23,14 @@ public interface SysRoleMapper {
      */
     SysRole queryById(Integer id);
 
+    /**
+     * 查询用户所拥有的角色信息
+     *
+     * @param userId   required=false
+     * @param username required=false
+     * @return
+     */
+    List<RoleDto> queryRolesForUser(@Param("userId") Integer userId, @Param("username") String username);
 
     /**
      * 查询全部数据

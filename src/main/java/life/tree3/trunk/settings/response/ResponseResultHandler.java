@@ -51,12 +51,13 @@ public class ResponseResultHandler implements ResponseBodyAdvice<Object> {
      *
      * @return 加工后的响应结果
      * @apiNote 返回结果为以下几种类型时不在此处做任何处理，直接返回：<br/>
-     * {@linkplain String},{@linkplain ModelAndView},{@linkplain RespResult},{@linkplain RespResult.ErrorResult}
+     * {@linkplain String},{@linkplain ModelAndView},{@linkplain RespResult}
      */
     @Override
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         logger.debug("封装返回结果");
 
+        //处理手动封装的响应结果
         if (body instanceof RespResult) {
             return body;
         }

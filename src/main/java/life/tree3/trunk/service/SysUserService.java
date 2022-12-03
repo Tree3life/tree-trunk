@@ -1,5 +1,6 @@
 package life.tree3.trunk.service;
 
+import life.tree3.trunk.pojo.dto.UserDto;
 import life.tree3.trunk.pojo.entity.SysUser;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public interface SysUserService {
      * @param id 主键
      */
     SysUser queryById(Integer id);
+
+    SysUser querySysUser(SysUser sysUser);
+
+    UserDto queryUserInfo(Integer id);
 
     /**
      * 修改数据

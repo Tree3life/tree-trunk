@@ -128,6 +128,24 @@
         </trim>
     </select>
 
+    <!--    <resultMap id="SysPageDtoMap" type="life.tree3.trunk.pojo.dto.PageDto">-->
+    <!--        &lt;!&ndash;根据角色id查询对应的页面&ndash;&gt;-->
+    <!--        <collection property="perms" column="{pageId=id}" select=""/>-->
+    <!--    </resultMap>-->
+
+
+    <select id="queryPermissionsForPages" resultMap="SysPermMap">
+        select pe.*
+        from sys_page p
+                 left join sys_page_perm pp on p.id = pp.page_id
+                 left join sys_perm pe on pe.id = pp.perm_id
+        where p.id = #{pageId}
+          and pe.locked=0
+          and p.deleted = 0
+          and pp.deleted = 0
+          and pe.deleted = 0
+    </select>
+
 
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">

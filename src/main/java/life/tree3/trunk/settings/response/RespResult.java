@@ -6,7 +6,10 @@ import java.io.Serializable;
 
 /**
  * <p>描述:
- * 统一封装的请求结果
+ * 统一封装响应<br/>
+ * 1.成功响应：RespResult.success;<br/>
+ * 2.失败响应：RespResult.failure();<br/>
+ * 3.异常响应：RespResult.exception();<br/>
  * </p >
  * <a>@Author: Rupert</ a>
  * <p>创建时间: 2022/12/1 0001 23:29 </p >
