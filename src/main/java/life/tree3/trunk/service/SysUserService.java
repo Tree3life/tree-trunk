@@ -18,7 +18,7 @@ public interface SysUserService {
      *
      * @param sysUser 实例对象
      */
-    List<SysUser> queryAll(SysUser sysUser);
+    List<UserDto> queryAll(SysUser sysUser);
 
     /**
      * 通过ID查询单条数据

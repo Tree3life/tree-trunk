@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * SysRole表控制器
@@ -70,14 +71,15 @@ public class SysRoleController {
         return sysRoleService.update(sysRole);
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @ResponseResult
-    public Boolean deleteById(Integer id) {
+    public Boolean deleteById(@RequestBody SysRole sysRole) {
+        Objects.requireNonNull(sysRole);
         if (log.isTraceEnabled()) {
-            log.trace("SysRoleController-->deleteById ( Integer  " + id + ") ");
+            log.trace("SysRoleController-->deleteById ( Integer  " + sysRole.getId() + ") ");
         }
 
-        return sysRoleService.deleteById(id);
+        return sysRoleService.deleteById(sysRole.getId());
     }
 
     @PostMapping("/save")

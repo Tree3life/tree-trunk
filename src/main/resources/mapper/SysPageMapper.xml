@@ -10,12 +10,13 @@
         <result property="path" column="path" jdbcType="VARCHAR"/>
         <result property="filePath" column="file_path" jdbcType="VARCHAR"/>
         <result property="weights" column="weights" jdbcType="INTEGER"/>
+        <result property="locked" column="locked" jdbcType="BOOLEAN"/>
         <result property="deleted" column="deleted" jdbcType="BOOLEAN"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <resultMap id="SysPageDtoMap" type="life.tree3.trunk.pojo.dto.PageDto">
+    <resultMap id="SysPageDtoMap" type="life.tree3.trunk.pojo.dto.PageDto" extends="SysPageMap">
         <!--根据角色id查询对应的页面-->
         <collection property="perms" column="{pageId=id}"
                     select="life.tree3.trunk.dao.SysPermMapper.queryPermissionsForPages"/>
@@ -23,7 +24,7 @@
 
     <!--全部字段-->
     <sql id="allColumn"> id
-    , parent_id, title, description, path, file_path, weights, deleted, create_time, update_time </sql>
+    , parent_id, title, description, path, file_path, weights, locked,deleted, create_time, update_time </sql>
 
     <!--通用对SysPage各个属性的值的非空判断-->
     <sql id="commonsValue">
@@ -44,6 +45,9 @@
         </if>
         <if test="weights != null">
             weights = #{weights},
+        </if>
+        <if test="locked != null">
+            locked = #{locked},
         </if>
         <if test="deleted != null">
             deleted = #{deleted},
@@ -76,6 +80,9 @@
         <if test="weights != null">
             weights,
         </if>
+        <if test="locked != null">
+            locked,
+        </if>
         <if test="deleted != null">
             deleted,
         </if>
@@ -106,6 +113,9 @@
         </if>
         <if test="weights != null">
             #{weights},
+        </if>
+        <if test="locked != null">
+            #{locked},
         </if>
         <if test="deleted != null">
             #{deleted},
@@ -142,6 +152,9 @@
         <if test="weights != null">
             and weights = #{weights}
         </if>
+        <if test="locked != null">
+            and locked = #{locked}
+        </if>
         <if test="deleted != null">
             and deleted = #{deleted}
         </if>
@@ -164,7 +177,8 @@
     </select>
 
     <select id="queryPagesForRole" resultMap="SysPageDtoMap">
-        select p.*
+        select p.id
+        , p.parent_id, p.title, p.description, p.path, p.file_path, p.weights, p.locked,p.deleted, p.create_time, p.update_time
         from sys_role r
         left join sys_role_page rp on r.id = rp.role_id
         left join sys_page p on rp.page_id = p.id
@@ -214,6 +228,9 @@
             </if>
             <if test="weights != null">
                 and weights = #{weights}
+            </if>
+            <if test="locked != null">
+                and locked = #{locked}
             </if>
             <if test="deleted != null">
                 and deleted = #{deleted}
@@ -271,20 +288,20 @@
 
     <!--批量插入-->
     <insert id="insertBatch" useGeneratedKeys="true">
-        insert into sys_page(parent_id, title, description, path, file_path, weights, deleted, create_time, update_time)
+        insert into sys_page(parent_id, title, description, path, file_path, weights, locked,deleted, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.parentId}, #{entity.title}, #{entity.description}, #{entity.path}, #{entity.filePath},
-            #{entity.weights}, #{entity.deleted}, #{entity.createTime}, #{entity.updateTime})
+            #{entity.weights}, #{entity.locked}, #{entity.deleted}, #{entity.createTime}, #{entity.updateTime})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" useGeneratedKeys="true">
-        insert into sys_page(parent_id, title, description, path, file_path, weights, deleted, create_time, update_time)
+        insert into sys_page(parent_id, title, description, path, file_path, weights, locked,deleted, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
             (#{entity.parentId}, #{entity.title}, #{entity.description}, #{entity.path}, #{entity.filePath},
-            #{entity.weights}, #{entity.deleted}, #{entity.createTime}, #{entity.updateTime})
+            #{entity.weights}, #{entity.locked}, #{entity.deleted}, #{entity.createTime}, #{entity.updateTime})
         </foreach>
         on duplicate key update
         parent_id = values(parent_id),
@@ -293,6 +310,7 @@
         path = values(path),
         file_path = values(file_path),
         weights = values(weights),
+        locked = values(locked),
         deleted = values(deleted),
         create_time = values(create_time),
         update_time = values(update_time)

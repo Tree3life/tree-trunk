@@ -27,7 +27,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public List<SysUser> queryAll(SysUser sysUser) {
+    public List<UserDto> queryAll(SysUser sysUser) {
         return sysUserMapper.queryAll(sysUser);
     }
 

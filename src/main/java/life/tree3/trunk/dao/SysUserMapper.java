@@ -51,7 +51,7 @@ public interface SysUserMapper {
      * @author rupert
      * @date 2022-12-01 23:40:16
      */
-    List<SysUser> queryAll(SysUser sysUser);
+    List<UserDto> queryAll(SysUser sysUser);
     SysUser querySysUser(SysUser sysUser);
 
     /**

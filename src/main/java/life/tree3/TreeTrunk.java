@@ -17,6 +17,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @MapperScan("life.tree3.trunk.dao")
 @SpringBootApplication
 public class TreeTrunk {
+    // TODO: 2022/12/3 0003 解决 `用户管理页面` 多角色报错
+    // TODO: 2022/12/3 0003 对身份证及电话号进行加密
+    // TODO: 2022/12/3 0003 提交代码
     public static void main(String[] args) {
         SpringApplication.run(TreeTrunk.class, args);
     }

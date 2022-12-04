@@ -1,6 +1,8 @@
 package life.tree3.trunk.controller;
 
+import life.tree3.trunk.pojo.dto.UserDto;
 import life.tree3.trunk.pojo.entity.SysUser;
+import life.tree3.trunk.pojo.vo.SysUserVo;
 import life.tree3.trunk.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
 import life.tree3.trunk.settings.response.ResponseResult;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * SysUser表控制器
@@ -52,7 +55,7 @@ public class SysUserController {
      */
     @GetMapping("/list")
     @ResponseResult
-    public List<SysUser> list(SysUser sysUser) {
+    public List<UserDto> list(SysUser sysUser) {
         if (log.isTraceEnabled()) {
             log.trace("SysUserController-->list(" + sysUser.toString() + ")");
         }
@@ -62,30 +65,36 @@ public class SysUserController {
 
     @PostMapping("/update")
     @ResponseResult
-    public SysUser update(@RequestBody SysUser sysUser) {
+    public SysUser update(@RequestBody SysUserVo sysUser) {
         if (log.isTraceEnabled()) {
             log.trace("SysUserController-->updateSysUser (" + sysUser.toString() + ")");
         }
-
+        System.out.println("======update======");
+        System.out.println(sysUser);
+        System.out.println("======update======");
         return sysUserService.update(sysUser);
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @ResponseResult
-    public Boolean deleteById(Integer id) {
+    public Boolean deleteById(@RequestBody SysUser user) {
+        Objects.requireNonNull(user);
         if (log.isTraceEnabled()) {
-            log.trace("SysUserController-->deleteById ( Integer  " + id + ") ");
+            log.trace("SysUserController-->deleteById ( Integer  " + user.getId() + ") ");
         }
 
-        return sysUserService.deleteById(id);
+        return sysUserService.deleteById(user.getId());
     }
 
     @PostMapping("/save")
     @ResponseResult
-    public SysUser save(@RequestBody SysUser sysUser) {
+    public SysUser save(@RequestBody SysUserVo sysUser) {
         if (log.isTraceEnabled()) {
             log.trace("SysUserController-->saveSysUser (" + sysUser.toString() + ")");
         }
+        System.out.println("======save======");
+        System.out.println(sysUser);
+        System.out.println("======save======");
 
         return sysUserService.insert(sysUser);
     }

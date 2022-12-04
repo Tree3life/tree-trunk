@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * SysPerm表控制器
@@ -70,14 +71,15 @@ public class SysPermController {
         return sysPermService.update(sysPerm);
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @ResponseResult
-    public Boolean deleteById(Integer id) {
+    public Boolean deleteById(@RequestBody SysPerm perm) {
+        Objects.requireNonNull(perm);
         if (log.isTraceEnabled()) {
-            log.trace("SysPermController-->deleteById ( Integer  " + id + ") ");
+            log.trace("SysPermController-->deleteById ( Integer  " + perm.getId() + ") ");
         }
 
-        return sysPermService.deleteById(id);
+        return sysPermService.deleteById(perm.getId());
     }
 
     @PostMapping("/save")

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * SysPage表控制器
@@ -70,14 +71,15 @@ public class SysPageController {
         return sysPageService.update(sysPage);
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     @ResponseResult
-    public Boolean deleteById(Integer id) {
+    public Boolean deleteById(@RequestBody SysPage page) {
+        Objects.requireNonNull(page);
         if (log.isTraceEnabled()) {
-            log.trace("SysPageController-->deleteById ( Integer  " + id + ") ");
+            log.trace("SysPageController-->deleteById ( Integer  " + page.getId() + ") ");
         }
 
-        return sysPageService.deleteById(id);
+        return sysPageService.deleteById(page.getId());
     }
 
     @PostMapping("/save")

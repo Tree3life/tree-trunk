@@ -39,7 +39,7 @@ public class AppController {
         String tempPwd = user.getPassword();
         user.setPassword(null);
 
-        List<SysUser> dbUsers = userService.queryAll(user);
+        List<UserDto> dbUsers = userService.queryAll(user);
         if (CollectionUtils.isEmpty(dbUsers)) {
             return RespResult.failure(ResponseCode.USER_NOT_EXIST);
         }
@@ -48,8 +48,7 @@ public class AppController {
             return RespResult.failure(ResponseCode.USER_LOGIN_ERROR);
         }
         UserDto userDto = userService.queryUserInfo(dbUser.getId());
-        System.out.println(userDto);
+        userDto.setPassword(null);
         return RespResult.success(userDto);
-
     }
 }

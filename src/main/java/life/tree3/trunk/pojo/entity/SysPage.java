@@ -68,6 +68,13 @@ public class SysPage implements Serializable {
      */
     private Integer weights;
 
+
+    /**
+     * 被锁定
+     */
+    private Boolean locked;
+
+
     /**
      * 被删除
      */
