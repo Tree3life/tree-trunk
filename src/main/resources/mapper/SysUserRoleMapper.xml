@@ -1,37 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="life.tree3.trunk.dao.SysRoleMapper">
+<mapper namespace="life.tree3.trunk.dao.SysUserRoleMapper">
 
-    <resultMap type="life.tree3.trunk.pojo.entity.SysRole" id="SysRoleMap">
+    <resultMap type="life.tree3.trunk.pojo.entity.SysUserRole" id="SysUserRoleMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
-        <result property="role" column="role" jdbcType="VARCHAR"/>
-        <result property="description" column="description" jdbcType="VARCHAR"/>
-        <result property="locked" column="locked" jdbcType="BOOLEAN"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="roleId" column="role_id" jdbcType="INTEGER"/>
         <result property="deleted" column="deleted" jdbcType="BOOLEAN"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <resultMap id="SysRoleDtoMap" type="life.tree3.trunk.pojo.dto.RoleDto" extends="SysRoleMap">
-        <!--根据角色id查询对应的页面-->
-        <collection property="pages" column="{roleId=id}"
-                    select="life.tree3.trunk.dao.SysPageMapper.queryPagesForRole"/>
-    </resultMap>
-
     <!--全部字段-->
     <sql id="allColumn"> id
-    , role, description, locked, deleted, create_time, update_time </sql>
+    , user_id, role_id, deleted, create_time, update_time </sql>
 
-    <!--通用对SysRole各个属性的值的非空判断-->
+    <!--通用对SysUserRole各个属性的值的非空判断-->
     <sql id="commonsValue">
-        <if test="role != null and role != ''">
-            role = #{role},
+        <if test="userId != null">
+            user_id = #{userId},
         </if>
-        <if test="description != null and description != ''">
-            description = #{description},
-        </if>
-        <if test="locked != null">
-            locked = #{locked},
+        <if test="roleId != null">
+            role_id = #{roleId},
         </if>
         <if test="deleted != null">
             deleted = #{deleted},
@@ -46,14 +36,11 @@
 
     <!--添加语句的字段列表-->
     <sql id="insertColumn">
-        <if test="role != null and role != ''">
-            role,
+        <if test="userId != null">
+            user_id,
         </if>
-        <if test="description != null and description != ''">
-            description,
-        </if>
-        <if test="locked != null">
-            locked,
+        <if test="roleId != null">
+            role_id,
         </if>
         <if test="deleted != null">
             deleted,
@@ -68,14 +55,11 @@
 
     <!--添加语句的值列表-->
     <sql id="insertValue">
-        <if test="role != null and role != ''">
-            #{role},
+        <if test="userId != null">
+            #{userId},
         </if>
-        <if test="description != null and description != ''">
-            #{description},
-        </if>
-        <if test="locked != null">
-            #{locked},
+        <if test="roleId != null">
+            #{roleId},
         </if>
         <if test="deleted != null">
             #{deleted},
@@ -94,14 +78,11 @@
             and id = #{id}
         </if>
 
-        <if test="role != null and role != ''">
-            and role = #{role}
+        <if test="userId != null">
+            and user_id = #{userId}
         </if>
-        <if test="description != null and description != ''">
-            and description = #{description}
-        </if>
-        <if test="locked != null">
-            and locked = #{locked}
+        <if test="roleId != null">
+            and role_id = #{roleId}
         </if>
         <if test="deleted != null">
             and deleted = #{deleted}
@@ -115,37 +96,20 @@
     </sql>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="SysRoleMap">
+    <select id="queryById" resultMap="SysUserRoleMap">
         select
         <include refid="allColumn"></include>
-        from sys_role
+        from sys_user_role
         <where>
             id = #{id}
         </where>
     </select>
 
-    <select id="queryRolesForUser" resultMap="SysRoleDtoMap">
-        select r.*
-        from sys_user u
-        left join sys_user_role ur on u.id = ur.user_id
-        left join sys_role r on ur.role_id = r.id
-        <where>
-            u.id = #{userId}
-            <if test="username != null and username!=''">
-                and u.username = #{username}
-            </if>
-            and u.deleted = 0
-            and ur.deleted = 0
-            and r.deleted = 0
-            and r.locked=0
-        </where>
-    </select>
-
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SysRoleMap">
+    <select id="queryAll" resultMap="SysUserRoleMap">
         select
         <include refid="allColumn"></include>
-        from sys_role
+        from sys_user_role
         <trim prefix="where" prefixOverrides="and" suffixOverrides=",">
             <include refid="queryCondition"></include>
         </trim>
@@ -155,19 +119,16 @@
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
-        from sys_role
+        from sys_user_role
         <where>
             <if test="id != null">
                 and id = #{id}
             </if>
-            <if test="role != null and role != ''">
-                and role = #{role}
+            <if test="userId != null">
+                and user_id = #{userId}
             </if>
-            <if test="description != null and description != ''">
-                and description = #{description}
-            </if>
-            <if test="locked != null">
-                and locked = #{locked}
+            <if test="roleId != null">
+                and role_id = #{roleId}
             </if>
             <if test="deleted != null">
                 and deleted = #{deleted}
@@ -184,7 +145,7 @@
 
     <!--通过主键修改数据-->
     <update id="update">
-        update sys_role
+        update sys_user_role
         <set>
             <include refid="commonsValue"></include>
         </set>
@@ -196,25 +157,32 @@
     <!--通过主键删除-->
     <delete id="deleteById">
         delete
-        from sys_role
+        from sys_user_role
         where id = #{id}
     </delete>
 
-    <!--通过主键逻辑删除-->
-    <delete id="logicDeleteById">
-        update sys_role
-        <set>
-            deleted=1
-        </set>
+    <!--逻辑删除-->
+    <update id="deleteByEntity">
+        update sys_user_role
+        set deleted=1
         <where>
-            id = #{id}
+            user_id = #{userId}
         </where>
-    </delete>
+    </update>
+    <update id="batchDelete">
+        delete from
+        sys_user_role
+        <where>
+            id in
+            <foreach collection="deletedIds" open="(" item="item" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+    </update>
 
-
-    <!--新增sys_role:哪个字段不为空就添加哪列数据,返回自增主键-->
+    <!--新增sys_user_role:哪个字段不为空就添加哪列数据,返回自增主键-->
     <insert id="insert" keyProperty="id" useGeneratedKeys="true">
-        insert into sys_role
+        insert into sys_user_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <include refid="insertColumn"/>
         </trim>
@@ -225,25 +193,22 @@
 
     <!--批量插入-->
     <insert id="insertBatch" useGeneratedKeys="true">
-        insert into sys_role(role, description, locked, deleted, create_time, update_time)
+        insert into sys_user_role(user_id, role_id, deleted, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.role}, #{entity.description}, #{entity.locked}, #{entity.deleted}, #{entity.createTime},
-            #{entity.updateTime})
+            (#{entity.userId}, #{entity.roleId}, #{entity.deleted}, #{entity.createTime}, #{entity.updateTime})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" useGeneratedKeys="true">
-        insert into sys_role(role, description, locked, deleted, create_time, update_time)
+        insert into sys_user_role(user_id, role_id, deleted, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.role}, #{entity.description}, #{entity.locked}, #{entity.deleted}, #{entity.createTime},
-            #{entity.updateTime})
+            (#{entity.userId}, #{entity.roleId}, #{entity.deleted}, #{entity.createTime}, #{entity.updateTime})
         </foreach>
         on duplicate key update
-        role = values(role),
-        description = values(description),
-        locked = values(locked),
+        user_id = values(user_id),
+        role_id = values(role_id),
         deleted = values(deleted),
         create_time = values(create_time),
         update_time = values(update_time)

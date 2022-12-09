@@ -65,14 +65,17 @@ public class SysUserController {
 
     @PostMapping("/update")
     @ResponseResult
-    public SysUser update(@RequestBody SysUserVo sysUser) {
+    public UserDto update(@RequestBody SysUserVo sysUser) {
         if (log.isTraceEnabled()) {
             log.trace("SysUserController-->updateSysUser (" + sysUser.toString() + ")");
         }
-        System.out.println("======update======");
-        System.out.println(sysUser);
-        System.out.println("======update======");
-        return sysUserService.update(sysUser);
+        Objects.requireNonNull(sysUser);
+        Objects.requireNonNull(sysUser.getId());
+        UserDto result = sysUserService.update(sysUser);
+        if (result != null) {
+            result.setPassword(null);
+        }
+        return result;
     }
 
     @PostMapping("/delete")
@@ -92,9 +95,6 @@ public class SysUserController {
         if (log.isTraceEnabled()) {
             log.trace("SysUserController-->saveSysUser (" + sysUser.toString() + ")");
         }
-        System.out.println("======save======");
-        System.out.println(sysUser);
-        System.out.println("======save======");
 
         return sysUserService.insert(sysUser);
     }

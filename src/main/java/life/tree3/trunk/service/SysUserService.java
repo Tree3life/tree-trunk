@@ -2,6 +2,7 @@ package life.tree3.trunk.service;
 
 import life.tree3.trunk.pojo.dto.UserDto;
 import life.tree3.trunk.pojo.entity.SysUser;
+import life.tree3.trunk.pojo.vo.SysUserVo;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface SysUserService {
      *
      * @param sysUser 实例对象
      */
-    SysUser update(SysUser sysUser);
+    UserDto update(SysUserVo sysUser);
 
     /**
      * 通过主键删除数据
@@ -48,5 +49,5 @@ public interface SysUserService {
     /**
      * @param sysUser 实例对象
      */
-    SysUser insert(SysUser sysUser);
+    SysUser insert(SysUserVo sysUser);
 }

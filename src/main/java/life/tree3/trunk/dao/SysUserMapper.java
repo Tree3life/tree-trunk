@@ -93,7 +93,7 @@ public interface SysUserMapper {
      * @param sysUser 实例对象
      * @return 影响行数
      */
-    int insert(SysUser sysUser);
+    boolean insert(SysUser sysUser);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）

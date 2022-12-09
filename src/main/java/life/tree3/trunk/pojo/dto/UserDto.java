@@ -45,10 +45,7 @@ public class UserDto extends SysUser {
      */
     private List<SysPerm> perms;
 
-//    UserDto
 
-
-    //todo 去重
     public List<PageDto> getPages() {
         if (null == roles || roles.size() == 0) {
             return pages;
@@ -70,7 +67,6 @@ public class UserDto extends SysUser {
         return pages;
     }
 
-    //todo 去重
     public List<SysPerm> getPerms() {
         if (null == pages || pages.size() == 0) {
             return perms;
