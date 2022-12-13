@@ -91,5 +91,13 @@ public interface SysPagePermMapper {
      * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
      */
     int insertOrUpdateBatch(@Param("entities") List<SysPagePerm> entities);
+
+    /**
+     * 逻辑删除 页面-权限 的关联关系
+     *
+     * @param pageId
+     * @return
+     */
+    int logicDelete(Integer pageId);
 }
 

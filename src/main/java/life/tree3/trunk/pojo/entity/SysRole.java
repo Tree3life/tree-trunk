@@ -44,6 +44,16 @@ public class SysRole implements Serializable {
     private String description;
 
     /**
+     * 首页
+     */
+    private String home;
+
+    /**
+     * 权重
+     */
+    private Integer weights;
+
+    /**
      * 被锁定
      */
     private Boolean locked;

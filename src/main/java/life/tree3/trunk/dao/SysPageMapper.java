@@ -2,6 +2,7 @@ package life.tree3.trunk.dao;
 
 import life.tree3.trunk.pojo.dto.PageDto;
 import life.tree3.trunk.pojo.entity.SysPage;
+import life.tree3.trunk.pojo.vo.SysPageVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -50,7 +51,7 @@ public interface SysPageMapper {
      * @author rupert
      * @date 2022-12-01 23:40:14
      */
-    List<SysPage> queryAll(SysPage sysPage);
+    List<PageDto> queryAll(SysPageVo sysPage);
 
     /**
      * 统计总行数

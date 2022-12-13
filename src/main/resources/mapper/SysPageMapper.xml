@@ -193,7 +193,7 @@
 
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SysPageMap">
+    <select id="queryAll" resultMap="SysPageDtoMap">
         select
         <include refid="allColumn"></include>
         from sys_page

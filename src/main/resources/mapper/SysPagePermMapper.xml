@@ -153,6 +153,11 @@
             id = #{id}
         </where>
     </update>
+    <update id="logicDelete">
+        update sys_page_perm
+        set deleted=1
+        where page_id = #{pageId}
+    </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">

@@ -1,6 +1,9 @@
 package life.tree3.trunk.controller;
 
+import life.tree3.trunk.pojo.dto.PageDto;
+import life.tree3.trunk.pojo.dto.RoleDto;
 import life.tree3.trunk.pojo.entity.SysRole;
+import life.tree3.trunk.pojo.vo.SysRoleVo;
 import life.tree3.trunk.service.SysRoleService;
 import lombok.extern.slf4j.Slf4j;
 import life.tree3.trunk.settings.response.ResponseResult;
@@ -53,17 +56,16 @@ public class SysRoleController {
      */
     @GetMapping("/list")
     @ResponseResult
-    public List<SysRole> list(SysRole sysRole) {
+    public List<RoleDto> list(SysRoleVo sysRole) {
         if (log.isTraceEnabled()) {
             log.trace("SysRoleController-->list(" + sysRole.toString() + ")");
         }
-
         return sysRoleService.queryAll(sysRole);
     }
 
     @PostMapping("/update")
     @ResponseResult
-    public SysRole update(@RequestBody SysRole sysRole) {
+    public SysRole update(@RequestBody SysRoleVo sysRole) {
         if (log.isTraceEnabled()) {
             log.trace("SysRoleController-->updateSysRole (" + sysRole.toString() + ")");
         }
@@ -84,7 +86,7 @@ public class SysRoleController {
 
     @PostMapping("/save")
     @ResponseResult
-    public SysRole save(@RequestBody SysRole sysRole) {
+    public SysRole save(@RequestBody SysRoleVo sysRole) {
         if (log.isTraceEnabled()) {
             log.trace("SysRoleController-->saveSysRole (" + sysRole.toString() + ")");
         }

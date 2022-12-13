@@ -1,5 +1,6 @@
 package life.tree3.trunk.dao;
 
+import life.tree3.trunk.pojo.dto.PageDto;
 import life.tree3.trunk.pojo.dto.RoleDto;
 import life.tree3.trunk.pojo.entity.SysRole;
 import org.apache.ibatis.annotations.Mapper;
@@ -50,7 +51,7 @@ public interface SysRoleMapper {
      * @author rupert
      * @date 2022-12-01 23:40:16
      */
-    List<SysRole> queryAll(SysRole sysRole);
+    List<RoleDto> queryAll(SysRole sysRole);
 
     /**
      * 统计总行数

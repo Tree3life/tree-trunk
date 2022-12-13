@@ -91,5 +91,12 @@ public interface SysRolePageMapper {
      * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
      */
     int insertOrUpdateBatch(@Param("entities") List<SysRolePage> entities);
+
+    /**
+     * 逻辑删除
+     *
+     * @param roleId 操作的记录数
+     */
+    int logicDelete(Integer roleId);
 }
 

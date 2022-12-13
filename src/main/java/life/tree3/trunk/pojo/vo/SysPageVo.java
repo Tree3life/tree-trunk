@@ -1,27 +1,26 @@
-package life.tree3.trunk.pojo.dto;
+package life.tree3.trunk.pojo.vo;
 
 import life.tree3.trunk.pojo.entity.SysPage;
-import life.tree3.trunk.pojo.entity.SysPerm;
 import lombok.*;
 
 import java.util.List;
 
 /**
- * <p>
- *
+ * <p>描述: <br/>
  * </p>
- * <a>@Author: Rupert</ a>
- * <p>创建时间: 2022/12/2 0002 9:44 </p>
+ * <a>@Author：Jinhui</a>
+ * <p>创建时间: 2022/12/10 16:14 </p>
  */
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class PageDto extends SysPage {
-
+public class SysPageVo extends SysPage {
     /**
-     * 访问本页面所必需的权限
+     * 角色
      */
-    private List<SysPerm> perms;
+    private List<Integer> perms;
+    private int size=20;
+    private int current=1;
 }

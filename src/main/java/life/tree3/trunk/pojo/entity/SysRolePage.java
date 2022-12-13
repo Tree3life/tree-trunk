@@ -57,6 +57,12 @@ public class SysRolePage implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-
+    public SysRolePage(Integer roleId, Integer pageId, Boolean deleted, Date createTime, Date updateTime) {
+        this.roleId = roleId;
+        this.pageId = pageId;
+        this.deleted = deleted;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
 }
 

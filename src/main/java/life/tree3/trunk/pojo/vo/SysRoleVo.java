@@ -1,4 +1,4 @@
-package life.tree3.trunk.pojo.dto;
+package life.tree3.trunk.pojo.vo;
 
 import life.tree3.trunk.pojo.entity.SysRole;
 import lombok.*;
@@ -6,21 +6,21 @@ import lombok.*;
 import java.util.List;
 
 /**
- * <p>
- *
+ * <p>描述: <br/>
  * </p>
- * <a>@Author: Rupert</ a>
- * <p>创建时间: 2022/12/2 0002 9:44 </p>
+ * <a>@Author：Jinhui</a>
+ * <p>创建时间: 2022/12/12 13:06 </p>
  */
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class RoleDto extends SysRole {
-
+public class SysRoleVo extends SysRole {
     /**
-     * 角色有权限访问的页面
+     * 角色
      */
-    private List<PageDto> pages;
+    private List<Integer> pages;
+    private int size=20;
+    private int current=1;
 }

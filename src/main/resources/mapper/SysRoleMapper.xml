@@ -6,6 +6,8 @@
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="role" column="role" jdbcType="VARCHAR"/>
         <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="home" column="home" jdbcType="VARCHAR"/>
+        <result property="weights" column="weights" jdbcType="VARCHAR"/>
         <result property="locked" column="locked" jdbcType="BOOLEAN"/>
         <result property="deleted" column="deleted" jdbcType="BOOLEAN"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
@@ -20,7 +22,7 @@
 
     <!--全部字段-->
     <sql id="allColumn"> id
-    , role, description, locked, deleted, create_time, update_time </sql>
+    , role, description, home,weights,locked, deleted, create_time, update_time </sql>
 
     <!--通用对SysRole各个属性的值的非空判断-->
     <sql id="commonsValue">
@@ -29,6 +31,12 @@
         </if>
         <if test="description != null and description != ''">
             description = #{description},
+        </if>
+        <if test="home != null and home != ''">
+            home = #{home},
+        </if>
+        <if test="weights != null">
+            weights = #{weights},
         </if>
         <if test="locked != null">
             locked = #{locked},
@@ -52,6 +60,12 @@
         <if test="description != null and description != ''">
             description,
         </if>
+        <if test="home != null and home != ''">
+            home ,
+        </if>
+        <if test="weights != null">
+            weights,
+        </if>
         <if test="locked != null">
             locked,
         </if>
@@ -73,6 +87,12 @@
         </if>
         <if test="description != null and description != ''">
             #{description},
+        </if>
+        <if test="home != null and home != ''">
+            #{home} ,
+        </if>
+        <if test="weights != null">
+            #{weights},
         </if>
         <if test="locked != null">
             #{locked},
@@ -99,6 +119,12 @@
         </if>
         <if test="description != null and description != ''">
             and description = #{description}
+        </if>
+        <if test="home != null and home != ''">
+            and home = #{home}
+        </if>
+        <if test="weights != null">
+            and weights = #{weights}
         </if>
         <if test="locked != null">
             and locked = #{locked}
@@ -142,7 +168,7 @@
     </select>
 
     <!--通过实体作为筛选条件查询-->
-    <select id="queryAll" resultMap="SysRoleMap">
+    <select id="queryAll" resultMap="SysRoleDtoMap">
         select
         <include refid="allColumn"></include>
         from sys_role
@@ -165,6 +191,12 @@
             </if>
             <if test="description != null and description != ''">
                 and description = #{description}
+            </if>
+            <if test="home != null and home != ''">
+                and home = #{home}
+            </if>
+            <if test="weights != null">
+                and weights = #{weights}
             </if>
             <if test="locked != null">
                 and locked = #{locked}
@@ -225,24 +257,26 @@
 
     <!--批量插入-->
     <insert id="insertBatch" useGeneratedKeys="true">
-        insert into sys_role(role, description, locked, deleted, create_time, update_time)
+        insert into sys_role(role, description,home,weights, locked, deleted, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.role}, #{entity.description}, #{entity.locked}, #{entity.deleted}, #{entity.createTime},
+            (#{entity.role}, #{entity.description}, #{entity.home}, #{entity.weights}, #{entity.locked}, #{entity.deleted}, #{entity.createTime},
             #{entity.updateTime})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" useGeneratedKeys="true">
-        insert into sys_role(role, description, locked, deleted, create_time, update_time)
+        insert into sys_role(role, description,home,weights, locked, deleted, create_time, update_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.role}, #{entity.description}, #{entity.locked}, #{entity.deleted}, #{entity.createTime},
+            (#{entity.role}, #{entity.description}, #{entity.home}, #{entity.weights}, #{entity.locked}, #{entity.deleted}, #{entity.createTime},
             #{entity.updateTime})
         </foreach>
         on duplicate key update
         role = values(role),
         description = values(description),
+        home = values(home),
+        weights = values(weights),
         locked = values(locked),
         deleted = values(deleted),
         create_time = values(create_time),

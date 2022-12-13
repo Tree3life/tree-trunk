@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 public class UserDto extends SysUser {
-    private static final long serialVersionUID = -7611492201597788003L;
 
     /**
      * 用户拥有的角色

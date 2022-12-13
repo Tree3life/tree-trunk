@@ -154,6 +154,12 @@
         </where>
     </update>
 
+    <update id="logicDelete">
+        update sys_role_page
+        set deleted = 1
+        where role_id = #{roleId}
+    </update>
+
     <!--通过主键删除-->
     <delete id="deleteById">
         delete

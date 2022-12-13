@@ -57,6 +57,12 @@ public class SysPagePerm implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-
+    public SysPagePerm(Integer pageId, Integer permId, Boolean deleted, Date createTime, Date updateTime) {
+        this.pageId = pageId;
+        this.permId = permId;
+        this.deleted = deleted;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+    }
 }
 

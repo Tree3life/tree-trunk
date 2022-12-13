@@ -1,6 +1,8 @@
 package life.tree3.trunk.controller;
 
+import life.tree3.trunk.pojo.dto.PageDto;
 import life.tree3.trunk.pojo.entity.SysPage;
+import life.tree3.trunk.pojo.vo.SysPageVo;
 import life.tree3.trunk.service.SysPageService;
 import lombok.extern.slf4j.Slf4j;
 import life.tree3.trunk.settings.response.ResponseResult;
@@ -53,7 +55,7 @@ public class SysPageController {
      */
     @GetMapping("/list")
     @ResponseResult
-    public List<SysPage> list(SysPage sysPage) {
+    public List<PageDto> list(SysPageVo sysPage) {
         if (log.isTraceEnabled()) {
             log.trace("SysPageController-->list(" + sysPage.toString() + ")");
         }
@@ -63,7 +65,7 @@ public class SysPageController {
 
     @PostMapping("/update")
     @ResponseResult
-    public SysPage update(@RequestBody SysPage sysPage) {
+    public SysPage update(@RequestBody SysPageVo sysPage) {
         if (log.isTraceEnabled()) {
             log.trace("SysPageController-->updateSysPage (" + sysPage.toString() + ")");
         }
@@ -84,7 +86,7 @@ public class SysPageController {
 
     @PostMapping("/save")
     @ResponseResult
-    public SysPage save(@RequestBody SysPage sysPage) {
+    public SysPage save(@RequestBody SysPageVo sysPage) {
         if (log.isTraceEnabled()) {
             log.trace("SysPageController-->saveSysPage (" + sysPage.toString() + ")");
         }

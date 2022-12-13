@@ -1,6 +1,9 @@
 package life.tree3.trunk.service;
 
+import life.tree3.trunk.pojo.dto.PageDto;
+import life.tree3.trunk.pojo.dto.RoleDto;
 import life.tree3.trunk.pojo.entity.SysRole;
+import life.tree3.trunk.pojo.vo.SysRoleVo;
 
 import java.util.List;
 
@@ -17,7 +20,7 @@ public interface SysRoleService {
      *
      * @param sysRole 实例对象
      */
-    List<SysRole> queryAll(SysRole sysRole);
+    List<RoleDto> queryAll(SysRoleVo sysRole);
 
     /**
      * 通过ID查询单条数据
@@ -31,7 +34,7 @@ public interface SysRoleService {
      *
      * @param sysRole 实例对象
      */
-    SysRole update(SysRole sysRole);
+    SysRole update(SysRoleVo sysRole);
 
     /**
      * 通过主键删除数据
@@ -43,5 +46,5 @@ public interface SysRoleService {
     /**
      * @param sysRole 实例对象
      */
-    SysRole insert(SysRole sysRole);
+    SysRole insert(SysRoleVo sysRole);
 }

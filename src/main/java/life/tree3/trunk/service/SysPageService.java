@@ -1,6 +1,8 @@
 package life.tree3.trunk.service;
 
+import life.tree3.trunk.pojo.dto.PageDto;
 import life.tree3.trunk.pojo.entity.SysPage;
+import life.tree3.trunk.pojo.vo.SysPageVo;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public interface SysPageService {
      *
      * @param sysPage 实例对象
      */
-    List<SysPage> queryAll(SysPage sysPage);
+    List<PageDto> queryAll(SysPageVo sysPage);
 
     /**
      * 通过ID查询单条数据
@@ -31,7 +33,7 @@ public interface SysPageService {
      *
      * @param sysPage 实例对象
      */
-    SysPage update(SysPage sysPage);
+    SysPage update(SysPageVo sysPage);
 
     /**
      * 通过主键删除数据
@@ -43,5 +45,5 @@ public interface SysPageService {
     /**
      * @param sysPage 实例对象
      */
-    SysPage insert(SysPage sysPage);
+    SysPage insert(SysPageVo sysPage);
 }
